@@ -1,0 +1,23 @@
+.page {
+    padding: 2rem;
+    background-color: #f0f8ff;
+    min-height: calc(100vh - 120px);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.createBtn {
+    background-color: #219ebc;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.6rem 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.95rem;
+}

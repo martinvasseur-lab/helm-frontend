@@ -1,0 +1,139 @@
+.layout {
+    display: flex;
+    min-height: calc(100vh - 120px);
+    background-color: #f0f8ff;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    background-color: #023047;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 0;
+    gap: 0.3rem;
+}
+
+.sidebarTitle {
+    color: #8ecae6;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0 1.2rem 0.8rem;
+}
+
+.sidebarBtn {
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 0.7rem 1.2rem;
+    color: #8ecae6;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: background 0.1s;
+}
+
+.sidebarBtn:hover {
+    background-color: rgba(255,255,255,0.05);
+}
+
+.sidebarBtn.active {
+    color: #ffb703;
+    border-left-color: #ffb703;
+    background-color: rgba(255,255,255,0.07);
+    font-weight: 600;
+}
+
+/* Main content */
+.content {
+    flex: 1;
+    padding: 2rem;
+}
+
+.contentTitle {
+    color: #023047;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0 0 1.5rem;
+}
+
+/* Table */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(2, 48, 71, 0.08);
+}
+
+.table th {
+    background-color: #023047;
+    color: #8ecae6;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.table td {
+    padding: 0.75rem 1rem;
+    color: #023047;
+    border-bottom: 1px solid #f0f8ff;
+    font-size: 0.9rem;
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+.table tr:hover td {
+    background-color: #f8fcff;
+}
+
+/* Badges */
+.badge {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.badgeAdmin   { background-color: #ffb703; color: #023047; }
+.badgeSuper   { background-color: #fb8500; color: #fff; }
+.badgeUser    { background-color: #8ecae6; color: #023047; }
+
+/* Action buttons */
+.actions {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.btnDelete {
+    background-color: #e63946;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btnSecondary {
+    background-color: #219ebc;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+}

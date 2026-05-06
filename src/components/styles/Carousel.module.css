@@ -1,0 +1,49 @@
+.carousel {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.viewport {
+    flex: 1;
+    overflow: hidden;
+}
+
+.track {
+    display: flex;
+    gap: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.item {
+    flex-shrink: 0;
+    width: 280px;
+}
+
+.btn {
+    background: #023047;
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    width: 2.4rem;
+    height: 2.4rem;
+    font-size: 1.4rem;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.btn:hover:not(:disabled) {
+    background: #219ebc;
+}
+
+.btn:disabled {
+    background: #ccc;
+    cursor: default;
+}

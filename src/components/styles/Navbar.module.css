@@ -1,0 +1,36 @@
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 0 2rem;
+    height: 60px;
+    background-color: #023047;
+}
+
+.logo {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-right: auto;
+    text-decoration: none;
+}
+
+.link {
+    color: #8ecae6;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.link.active {
+    color: #ffb703;
+    border-bottom: 2px solid #ffb703;
+}
+
+.loginBtn {
+    background-color: #fb8500;
+    color: #ffffff;
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+}
