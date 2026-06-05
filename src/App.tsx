@@ -1,86 +1,97 @@
-import RegisterForm from './components/auth/RegisterFrom';
-import LoginForm from './components/auth/LoginForm';
-import Home from './components/home/Home';
-import Backoffice from './components/backoffice/Backoffice';
-import TableArticle from './components/blog/TableArticle';
-import FormArticle from './components/blog/FormArticle';
-import ArticleDetail from './components/blog/ArticleDetail';
-import GetProduct from './components/product/GetProduct';
-import ViewProduct from './components/backoffice/products/ViewProduct';
-import AddProduct from './components/backoffice/products/AddProduct';
-import AddArticle from './components/backoffice/articles/AddArticle';
-import UpdateArticle from './components/backoffice/articles/UpdateArticle';
-import ViewArticle from './components/backoffice/articles/ViewArticle';
-import UpdateProductForm from './components/backoffice/products/UpdateProduct';
-import ProductDetail from './components/product/ProductDetail';
-import FormContact from './components/contact/FormContact';
+// App.tsx
+import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
 
+import Home from './components/home/Home';
 
-function ArticleDetailPage() {
-  const { id } = useParams<{ id: string }>();
-  return <ArticleDetail articleId={Number(id)} />;
-}
+import RegisterUser from './components/auth/RegisterUser';
+import LoginUser from './components/auth/LoginUser';
 
-function ViewProductPage() {
-  const { id } = useParams<{ id: string }>();
-  return <ViewProduct productId={Number(id)} />;
-}
+import AddContact from './components/contact/AddContact';
 
-function UpdateProductPage() {
-  const { id } = useParams<{ id: string }>();
-  return <UpdateProductForm productId={Number(id)} />;
-}
+import ListArticles from './components/blog/ListArticles';
+import AddArticle from './components/blog/AddArticle';
+import ViewArticle from './components/blog/ViewArticle';
 
-function ProductDetailPage() {
-  const { id } = useParams<{ id: string }>();
-  return <ProductDetail productId={Number(id)} />;
-}
+import ListProducts from './components/product/ListProducts';
+import ViewProduct from './components/product/ViewProduct';
 
-function ViewArticlePage() {
-  const { id } = useParams<{ id: string }>();
-  return <ViewArticle articleId={Number(id)} />;
-}
+import Backoffice from './components/backoffice/Backoffice';
+import AdminAddArticle from './components/backoffice/articles/AddArticle';
+import AdminUpdateArticle from './components/backoffice/articles/UpdateArticle';
+import AdminViewArticle from './components/backoffice/articles/ViewArticle';
+import AdminAddProduct from './components/backoffice/products/AddProduct';
+import AdminUpdateProduct from './components/backoffice/products/UpdateProduct';
+import AdminViewProduct from './components/backoffice/products/ViewProduct';
+import ListLabels from './components/backoffice/labels/ListLabels';
+import AddLabel from './components/backoffice/labels/AddLabel';
+import ListCategories from './components/backoffice/categories/ListCategories';
+import AddCategory from './components/backoffice/categories/AddCategory';
+import ViewUser from './components/backoffice/users/ViewUser';
 
-function UpdateArticlePage() {
-  const { id } = useParams<{ id: string }>();
-  return <UpdateArticle articleId={Number(id)} />;
+function Layout() {
+  return (
+    <>
+      <Navbar />
+      <Outlet />
+      <Footer />
+    </>
+  );
 }
 
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<RegisterUser />} />
+          <Route path="/login" element={<LoginUser />} />
+          <Route path="/contact" element={<AddContact />} />
 
-        <Route path="/register" element={<RegisterForm />} />
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/backoffice" element={<Backoffice />} />
+          <Route path="/articles">
+            <Route index element={<ListArticles />} />
+            <Route path="create" element={<AddArticle />} />
+            <Route path=":id" element={<ViewArticle />} />
+          </Route>
 
-        <Route path="/article" element={<TableArticle />} />
-        <Route path="/article/create" element={<FormArticle />} />
-        <Route path="/article/:id" element={<ArticleDetailPage />} />
+          <Route path="/products">
+            <Route index element={<ListProducts />} />
+            <Route path=":id" element={<ViewProduct />} />
+          </Route>
 
-        <Route path="/backoffice/article/create" element={<AddArticle />} />
-        <Route path="/backoffice/article/:id" element={<ViewArticlePage />} />
-        <Route path="/backoffice/article/:id/update" element={<UpdateArticlePage />} />
+          <Route path="/backoffice">
+            <Route index element={<Backoffice />} />
 
-        <Route path='/product' element={<GetProduct/>} />
-        <Route path="/product/:id" element={<ProductDetailPage />} />
+            <Route path="articles">
+              <Route path="create" element={<AdminAddArticle />} />
+              <Route path=":id" element={<AdminViewArticle />} />
+              <Route path=":id/update" element={<AdminUpdateArticle />} />
+            </Route>
 
-        <Route path="/backoffice/product/create" element={<AddProduct />} />
-        <Route path="/backoffice/product/:id" element={<ViewProductPage />} />
-        <Route path="/backoffice/product/:id/update" element={<UpdateProductPage />} />
+            <Route path="products">
+              <Route path="create" element={<AdminAddProduct />} />
+              <Route path=":id" element={<AdminViewProduct />} />
+              <Route path=":id/update" element={<AdminUpdateProduct />} />
+            </Route>
 
-        <Route path='/contact' element={<FormContact />} />
+            <Route path="labels">
+              <Route index element={<ListLabels />} />
+              <Route path="create" element={<AddLabel />} />
+            </Route>
 
+            <Route path="categories">
+              <Route index element={<ListCategories />} />
+              <Route path="create" element={<AddCategory />} />
+            </Route>
+
+            <Route path="users/:id" element={<ViewUser />} />
+          </Route>
+        </Route>
       </Routes>
-      <Footer />
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

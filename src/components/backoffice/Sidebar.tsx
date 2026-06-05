@@ -1,6 +1,6 @@
-import styles from "./styles/Backoffice.module.css";
+import styles from "./Sidebar.module.css";
 
-type Section = "users" | "articles" | "labels" | "products";
+type Section = "users" | "articles" | "labels" | "products" | "categories" | "contacts";
 
 interface SidebarProps {
     active: Section;
@@ -12,6 +12,8 @@ const items: { key: Section; label: string }[] = [
     { key: "articles", label: "Articles" },
     { key: "labels", label: "Labels" },
     { key: "products", label: "Products" },
+    { key: "categories", label: "Categories" },
+    { key: "contacts", label: "Contacts" },
 ];
 
 export default function Sidebar({ active, onChange }: SidebarProps) {

@@ -1,27 +1,19 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import FormCard, { formStyles as styles } from "../../Card";
+import { useState, useEffect } from "react";
+import FormCard, { formStyles as styles } from "../Card";
 
 interface Label { id: number; name: string; }
 
-export default function UpdateArticle() {
-    const navigate = useNavigate();
-    const { id } = useParams();
-    const articleId = Number(id);
+export default function AddArticle() {
     const [form, setForm] = useState({ title: "", content: "", image_url: "" });
     const [availableLabels, setAvailableLabels] = useState<Label[]>([]);
     const [selectedLabels, setSelectedLabels] = useState<Label[]>([]);
 
     useEffect(() => {
-        Promise.all([
-            fetch(`http://localhost:5002/article/${articleId}`).then(r => r.json()),
-            fetch("http://localhost:5002/label").then(r => r.json()),
-        ]).then(([article, labels]) => {
-            setForm({ title: article.title, content: article.content, image_url: article.image_url ?? "" });
-            setSelectedLabels(article.labels ?? []);
-            setAvailableLabels(labels);
-        }).catch(() => {});
-    }, [articleId]);
+        fetch("http://localhost:5002/label")
+            .then(r => r.json())
+            .then(setAvailableLabels)
+            .catch(() => {});
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLElement & { name: string; value: string }>) => {
         const { name, value } = e.target;
@@ -40,29 +32,28 @@ export default function UpdateArticle() {
     };
 
     const handleSubmit = async () => {
-        const res = await fetch(`http://localhost:5002/article/${articleId}`, {
-            method: "PATCH",
-            headers: { Authorization: "Bearer admin-token", "Content-Type": "application/json" },
+        await fetch("http://localhost:5002/article", {
+            method: "POST",
+            headers: { Authorization: "Bearer user-token", "Content-Type": "application/json" },
             body: JSON.stringify({ ...form, label_ids: selectedLabels.map(l => l.id) }),
         });
-        if (res.ok) navigate("/backoffice");
     };
 
     const unselected = availableLabels.filter(l => !selectedLabels.find(s => s.id === l.id));
 
     return (
-        <FormCard title="Update article" onSubmit={handleSubmit} submitLabel="Update">
+        <FormCard title="New article" onSubmit={handleSubmit} submitLabel="Create">
             <div className={styles.field}>
                 <label className={styles.label}>Title</label>
-                <input name="title" type="text" value={form.title} className={styles.input} onChange={handleChange} />
+                <input name="title" type="text" placeholder="Perou" className={styles.input} onChange={handleChange} required />
             </div>
             <div className={styles.field}>
                 <label className={styles.label}>Content</label>
-                <textarea name="content" value={form.content} className={styles.input} onChange={handleChange} />
+                <textarea name="content" placeholder="Great Latino Country" className={styles.input} onChange={handleChange} required />
             </div>
             <div className={styles.field}>
                 <label className={styles.label}>Image URL</label>
-                <input name="image_url" type="url" value={form.image_url} className={styles.input} onChange={handleChange} />
+                <input name="image_url" type="url" placeholder="https://example.com/image.jpg" className={styles.input} onChange={handleChange} />
             </div>
             <div className={styles.field}>
                 <label className={styles.label}>Labels</label>

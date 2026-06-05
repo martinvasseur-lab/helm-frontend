@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import styles from "./styles/ArticleDetail.module.css";
+import { useParams } from "react-router-dom";
+import styles from "./ViewArticle.module.css";
 
 interface Comment {
     id: number;
@@ -7,16 +8,20 @@ interface Comment {
     author_id: number;
 }
 
+interface Label { id: number; name: string; }
+
 interface Article {
     id: number;
     title: string;
     content: string;
-    labels: string[];
-    image?: string;
+    labels: Label[];
+    image_url?: string;
     comments: Comment[];
 }
 
-export default function ArticleDetail({ articleId }: { articleId: number }) {
+export default function ViewArticle() {
+    const { id } = useParams();
+    const articleId = Number(id);
     const [article, setArticle] = useState<Article | null>(null);
 
     useEffect(() => {
@@ -31,8 +36,8 @@ export default function ArticleDetail({ articleId }: { articleId: number }) {
         <div className={styles.page}>
             <a href="/article" className={styles.backLink}>← Back to articles</a>
             <div className={styles.container}>
-                {article.image
-                    ? <img src={article.image} alt={article.title} className={styles.image} />
+                {article.image_url
+                    ? <img src={article.image_url} alt={article.title} className={styles.image} />
                     : <div className={styles.imagePlaceholder} />
                 }
 
@@ -40,14 +45,14 @@ export default function ArticleDetail({ articleId }: { articleId: number }) {
                     <h1 className={styles.title}>{article.title}</h1>
                     {article.labels.length > 0 && (
                         <div className={styles.labels}>
-                            {article.labels.map((l) => <span key={l} className={styles.label}>{l}</span>)}
+                            {article.labels.map((l) => <span key={l.id} className={styles.label}>{l.name}</span>)}
                         </div>
                     )}
 
                     <p className={styles.content}>{article.content}</p>
 
                     <hr className={styles.divider} />
-                    
+
                     <h2 className={styles.commentsTitle}>Comments ({article.comments.length})</h2>
                     {article.comments.length === 0
                         ? <p className={styles.empty}>No comments yet.</p>

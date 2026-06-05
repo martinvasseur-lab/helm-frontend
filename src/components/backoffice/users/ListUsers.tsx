@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import styles from "../styles/Backoffice.module.css";
+import styles from "../Backoffice.module.css";
 
 interface User {
     id: number;
-    name: string;
+    username: string;
     email: string;
     role: string;
 }
@@ -14,7 +14,7 @@ const roleClass: Record<string, string> = {
     user: styles.badgeUser,
 };
 
-export default function UserList() {
+export default function ListUsers() {
     const [users, setUsers] = useState<User[]>([]);
     const token = localStorage.getItem("token");
     const currentRole = localStorage.getItem("role");
@@ -59,11 +59,12 @@ export default function UserList() {
                 <tbody>
                     {users.map((u) => (
                         <tr key={u.id}>
-                            <td>{u.name}</td>
+                            <td>{u.username}</td>
                             <td>{u.email}</td>
                             <td><span className={`${styles.badge} ${roleClass[u.role] ?? styles.badgeUser}`}>{u.role}</span></td>
                             <td>
                                 <div className={styles.actions}>
+                                    <a href={`/backoffice/user/${u.id}`} className={styles.btnSecondary}>View</a>
                                     {u.role !== "superadmin" && currentRole === "superadmin" && u.role === "user"  && <button className={styles.btnSecondary} onClick={() => setRole(u.id, "admin")}>Promote</button>}
                                     {u.role !== "superadmin" && currentRole === "superadmin" && u.role === "admin" && <button className={styles.btnSecondary} onClick={() => setRole(u.id, "user")}>Demote</button>}
                                     {u.role === "user" && <button className={styles.btnDelete} onClick={() => deleteUser(u.id)}>Delete</button>}

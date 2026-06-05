@@ -1,20 +1,25 @@
 import { useEffect, useState } from "react";
-import styles from "../styles/Backoffice.module.css";
+import styles from "../Backoffice.module.css";
+
+interface Label {
+    id: number;
+    name: string;
+}
 
 interface Article {
     id: number;
     title: string;
     content: string;
-    labels: string[];
+    labels: Label[];
     author_id: number;
 }
 
-export default function ArticleList() {
+export default function ListArticles() {
     const [articles, setArticles] = useState<Article[]>([]);
     const token = "admin-token";
 
     useEffect(() => {
-        fetch("http://localhost:5002/article/list")
+        fetch("http://localhost:5002/article")
             .then((r) => r.json())
             .then(setArticles);
     }, []);
@@ -38,7 +43,6 @@ export default function ArticleList() {
                     <tr>
                         <th>Title</th>
                         <th>Labels</th>
-                        <th>Author</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -46,8 +50,7 @@ export default function ArticleList() {
                     {articles.map((a) => (
                         <tr key={a.id}>
                             <td>{a.title}</td>
-                            <td>{a.labels.join(", ")}</td>
-                            <td>#{a.author_id}</td>
+                            <td>{a.labels.map(l => l.name).join(", ")}</td>
                             <td>
                                 <div className={styles.actions}>
                                     <a href={`/backoffice/article/${a.id}`} className={styles.btnSecondary}>View</a>

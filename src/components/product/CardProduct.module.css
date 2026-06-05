@@ -49,6 +49,12 @@
     margin: 0;
 }
 
+.stock {
+    color: #6b7280;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
 .categories {
     display: flex;
     flex-wrap: wrap;

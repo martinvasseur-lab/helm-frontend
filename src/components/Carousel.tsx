@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "./styles/Carousel.module.css";
+import styles from "./Carousel.module.css";
 
 const CARD_WIDTH = 280;
 const CARD_GAP = 24;

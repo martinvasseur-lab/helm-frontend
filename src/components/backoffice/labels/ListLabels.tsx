@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import styles from "../styles/Backoffice.module.css";
+import styles from "../Backoffice.module.css";
 
 interface Label {
     id: number;
@@ -8,7 +8,7 @@ interface Label {
     category_name: number
 }
 
-export default function LabelList() {
+export default function ListLabels() {
     const [labels, setLabels] = useState<Label[]>([]);
     const token = "admin-token";
 

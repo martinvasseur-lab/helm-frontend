@@ -1,14 +1,13 @@
 import { useState } from "react";
-import FormCard, { formStyles as styles } from "../FormCard";
+import FormCard, { formStyles as styles } from "../Card";
 
 interface FormData {
-    name: string;
     email: string;
     password: string;
 }
 
-export default function RegisterForm() {
-    const [form, setForm] = useState<FormData>({ name: "", email: "", password: "" });
+export default function LoginUser() {
+    const [form, setForm] = useState<FormData>({ email: "", password: "" });
 
     const handleChange = (e: React.ChangeEvent<HTMLElement & { name: string; value: string }>) => {
         const { name, value } = e.target;
@@ -16,24 +15,26 @@ export default function RegisterForm() {
     };
 
     const handleSubmit = async () => {
-        await fetch("http://localhost:5001/auth/register", {
+        const res = await fetch("http://localhost:5001/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(form),
         });
+        const data = await res.json();
+        if (data.token) {
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("role", data.role ?? "user");
+            window.location.href = "/";
+        }
     };
 
     return (
         <FormCard
-            title="Register"
+            title="Login"
             onSubmit={handleSubmit}
-            submitLabel="Register"
-            footer={<>Already have an account? <a href="/login" className={styles.footerLink}>Login</a></>}
+            submitLabel="Login"
+            footer={<>No account? <a href="/register" className={styles.footerLink}>Register now</a></>}
         >
-            <div className={styles.field}>
-                <label className={styles.label}>Name</label>
-                <input name="name" type="text" placeholder="Jane Smith" className={styles.input} onChange={handleChange} />
-            </div>
             <div className={styles.field}>
                 <label className={styles.label}>Email</label>
                 <input name="email" type="email" placeholder="jane@example.com" className={styles.input} onChange={handleChange} />

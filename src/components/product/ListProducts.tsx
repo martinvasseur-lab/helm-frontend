@@ -1,20 +1,26 @@
 import { useEffect, useState } from "react";
-import ProductCard from "./ProductCard";
-import styles from "./styles/TableProduct.module.css";
+import ProductCard from "./CardProduct";
+import styles from "./ListProducts.module.css";
+
+interface Category { id: number; name: string; }
 
 interface Product {
     id: number;
     name: string;
     price: number;
     description: string;
-    categories: string[];
+    image_url?: string;
+    stock: number;
+    created_at: string;
+    updated_at: string;
+    categories: Category[];
 }
 
-export default function GetProduct() {
+export default function ListProducts() {
     const [products, setProducts] = useState<Product[]>([]);
 
     useEffect(() => {
-        fetch("http://localhost:5003/product/list")
+        fetch("http://localhost:5003/product")
             .then((res) => res.json())
             .then(setProducts);
     }, []);
@@ -28,7 +34,9 @@ export default function GetProduct() {
                         id={product.id}
                         name={product.name}
                         price={product.price}
+                        stock={product.stock}
                         categories={product.categories}
+                        image={product.image_url}
                     />
                 ))}
             </div>

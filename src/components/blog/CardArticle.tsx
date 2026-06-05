@@ -1,9 +1,11 @@
-import styles from "./styles/ArticleCard.module.css";
+import styles from "./CardArticle.module.css";
+
+interface Label { id: number; name: string; }
 
 interface ArticleCardProps {
     id: number;
     title: string;
-    labels: string[];
+    labels: Label[];
     image?: string;
 }
 
@@ -18,7 +20,7 @@ export default function ArticleCard({ id, title, labels, image }: ArticleCardPro
                 <h3 className={styles.title}>{title}</h3>
                 {labels.length > 0 && (
                     <div className={styles.labels}>
-                        {labels.map((l) => <span key={l} className={styles.label}>{l}</span>)}
+                        {labels.map((l) => <span key={l.id} className={styles.label}>{l.name}</span>)}
                     </div>
                 )}
             </div>

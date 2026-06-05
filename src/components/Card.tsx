@@ -1,4 +1,4 @@
-import styles from "./styles/FormCard.module.css";
+import styles from "./Card.module.css";
 
 interface FormCardProps {
     title: string;

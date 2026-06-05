@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
-import styles from "../styles/Backoffice.module.css";
+import styles from "../Backoffice.module.css";
+
+interface Category { id: number; name: string; }
 
 interface Product {
     id: number;
     name: string;
     price: number;
-    categories: string[];
+    categories: Category[];
 }
 
-export default function ProductList() {
+export default function ListProducts() {
     const [products, setProducts] = useState<Product[]>([]);
     const token = "admin-token";
 
     useEffect(() => {
-        fetch("http://localhost:5003/product/list", {
+        fetch("http://localhost:5003/product", {
             headers: { Authorization: `Bearer ${token}` },
         })
             .then((r) => r.json())
@@ -48,7 +50,7 @@ export default function ProductList() {
                         <tr key={p.id}>
                             <td>{p.name}</td>
                             <td>{p.price} €</td>
-                            <td>{p.categories.join(", ")}</td>
+                            <td>{p.categories.map(c => c.name).join(", ")}</td>
                             <td>
                                 <div className={styles.actions}>
                                     <a href={`/backoffice/product/${p.id}`} className={styles.btnSecondary}>View</a>

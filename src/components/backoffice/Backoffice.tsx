@@ -1,12 +1,14 @@
 import { useState } from "react";
 import Sidebar from "./Sidebar";
-import UserList from "./lists/UserList";
-import ArticleList from "./lists/ArticleList";
-import ProductList from "./lists/ProductList";
-import styles from "./styles/Backoffice.module.css";
-import LabelList from "./lists/LabelList";
+import ListUsers from "./users/ListUsers";
+import ListArticles from "./articles/ListArticles";
+import ListProducts from "./products/ListProducts";
+import ListLabels from "./labels/ListLabels";
+import ListCategories from "./categories/ListCategories";
+import ListContacts from "./contacts/ListContacts";
+import styles from "./Backoffice.module.css";
 
-type Section = "users" | "articles" | "labels" | "products";
+type Section = "users" | "articles" | "labels" | "products" | "categories" | "contacts";
 
 export default function Backoffice() {
     const [section, setSection] = useState<Section>("users");
@@ -15,10 +17,12 @@ export default function Backoffice() {
         <div className={styles.layout}>
             <Sidebar active={section} onChange={setSection} />
             <main className={styles.content}>
-                {section === "users"    && <UserList />}
-                {section === "articles" && <ArticleList />}
-                {section === "labels" && <LabelList />}
-                {section === "products" && <ProductList />}
+                {section === "users"      && <ListUsers />}
+                {section === "articles"   && <ListArticles />}
+                {section === "labels"     && <ListLabels />}
+                {section === "products"   && <ListProducts />}
+                {section === "categories" && <ListCategories />}
+                {section === "contacts"   && <ListContacts />}
             </main>
         </div>
     );

@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
-import styles from "./styles/Home.module.css";
+import styles from "./Home.module.css";
 import heroImg from "../../assets/image/Home/Voyage Japon.jpg";
-import ArticleCard from "../ArticleCard";
-import ProductCard from "../product/ProductCard";
+import ArticleCard from "../blog/CardArticle";
+import ProductCard from "../product/CardProduct";
 import Carousel from "../Carousel";
 
-interface Article { id: number; title: string; labels: string[]; image?: string; }
-interface Product { id: number; name: string; price: number; categories: string[]; image?: string; }
+interface Label { id: number; name: string }
+interface Article { id: number; title: string; labels: Label[]; image?: string; }
+interface Category { id: number; name: string; }
+interface Product { id: number; name: string; price: number; categories: Category[]; image?: string; }
 
 const links = [
     { to: "/article", icon: "✍️", title: "Blog",     desc: "Articles and travel stories" },
@@ -23,7 +25,7 @@ export default function Home() {
             .then(r => r.json())
             .then(setArticles)
             .catch(() => {});
-        fetch("http://localhost:5003/product/list")
+        fetch("http://localhost:5003/product")
             .then(r => r.json())
             .then(setProducts)
             .catch(() => {});

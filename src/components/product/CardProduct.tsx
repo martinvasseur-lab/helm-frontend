@@ -1,14 +1,17 @@
-import styles from "./styles/ProductCard.module.css";
+import styles from "./CardProduct.module.css";
+
+interface Category { id: number; name: string; }
 
 interface ProductCardProps {
     id: number;
     name: string;
     price: number;
-    categories: string[];
+    stock: number;
+    categories: Category[];
     image?: string;
 }
 
-export default function ProductCard({ id, name, price, categories, image }: ProductCardProps) {
+export default function ProductCard({ id, name, price, stock, categories, image }: ProductCardProps) {
     return (
         <a href={`/product/${id}`} className={styles.card}>
             {image
@@ -18,9 +21,10 @@ export default function ProductCard({ id, name, price, categories, image }: Prod
             <div className={styles.body}>
                 <h3 className={styles.name}>{name}</h3>
                 <p className={styles.price}>{price} €</p>
+                {stock === 0 && <p className={styles.stock}>Out of stock</p>}
                 {categories.length > 0 && (
                     <div className={styles.categories}>
-                        {categories.map((c) => <span key={c} className={styles.category}>{c}</span>)}
+                        {categories.map((c) => <span key={c.id} className={styles.category}>{c.name}</span>)}
                     </div>
                 )}
             </div>

@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
-import ArticleCard from "../ArticleCard";
-import styles from "./styles/TableArticle.module.css";
+import ArticleCard from "./CardArticle";
+import styles from "./ListArticles.module.css";
 
+interface Label { id: number; name: string; }
 
 interface Post {
     id: number;
     title: string;
     content: string;
-    labels: string[];
-    image?: string;
+    labels: Label[];
+    image_url?: string;
     comments: Comment[];
 }
 
-export default function TableArticle() {
+export default function ListArticles() {
     const [posts, setPosts] = useState<Post[]>([]);
 
     useEffect(() => {
-        fetch("http://localhost:5002/article/list")
+        fetch("http://localhost:5002/article")
             .then((res) => res.json())
             .then((data) => setPosts(data));
     }, []);
@@ -33,7 +34,7 @@ export default function TableArticle() {
                         id={post.id}
                         title={post.title}
                         labels={post.labels}
-                        image={post.image}
+                        image={post.image_url}
                     />
                 ))}
             </div>

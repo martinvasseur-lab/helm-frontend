@@ -4,49 +4,6 @@
     background-color: #f0f8ff;
 }
 
-/* Sidebar */
-.sidebar {
-    width: 220px;
-    flex-shrink: 0;
-    background-color: #023047;
-    display: flex;
-    flex-direction: column;
-    padding: 1.5rem 0;
-    gap: 0.3rem;
-}
-
-.sidebarTitle {
-    color: #8ecae6;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 0 1.2rem 0.8rem;
-}
-
-.sidebarBtn {
-    background: none;
-    border: none;
-    text-align: left;
-    padding: 0.7rem 1.2rem;
-    color: #8ecae6;
-    font-size: 0.95rem;
-    cursor: pointer;
-    border-left: 3px solid transparent;
-    transition: background 0.1s;
-}
-
-.sidebarBtn:hover {
-    background-color: rgba(255,255,255,0.05);
-}
-
-.sidebarBtn.active {
-    color: #ffb703;
-    border-left-color: #ffb703;
-    background-color: rgba(255,255,255,0.07);
-    font-weight: 600;
-}
-
 /* Main content */
 .content {
     flex: 1;

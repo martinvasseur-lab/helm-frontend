@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import FormCard, { formStyles as styles } from "../../FormCard";
+import FormCard, { formStyles as styles } from "../../Card";
 
 interface Category {
     id: number;

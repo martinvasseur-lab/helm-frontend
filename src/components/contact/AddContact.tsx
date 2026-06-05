@@ -1,5 +1,5 @@
 import { useState } from "react";
-import FormCard, { formStyles as styles } from "../FormCard";
+import FormCard, { formStyles as styles } from "../Card";
 
 interface Contact {
     name: string;
@@ -8,7 +8,7 @@ interface Contact {
     content: string;
 }
 
-export default function FormContact() {
+export default function AddContact() {
     const [form, setForm] = useState<Contact>({ name: "", email: "", subject: "", content: "" });
 
     const handleChange = (e: React.ChangeEvent<HTMLElement & { name: string; value: string }>) => {
@@ -17,7 +17,7 @@ export default function FormContact() {
     };
 
     const handleSubmit = async () => {
-        await fetch("http://localhost:5004/contact/create", {
+        await fetch("http://localhost:5004/contact", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(form),
